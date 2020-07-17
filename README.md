@@ -30,6 +30,14 @@ Para gerar o pacote de produção, rode o comando
 | /usuario/cadastra | POST   | Cria o usuário                                |
 | /usuario/login    | POST   | Faz o login do usuário e responde com o token |
 
+### Produto
+
+| Rota              | Método | Descrição                                     |
+| ----------------- | ------ | --------------------------------------------- |
+| /produto/:id      | GET    | Lista o produto pelo id                       |
+| /produto/cadastra | POST   | Cadastra Produto                              |
+| /produto/:id      | DELETE | Deleta o Produto                              |
+
 ## Schemas
 
 ### Usuario
