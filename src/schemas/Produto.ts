@@ -5,7 +5,7 @@ import Categoria from './Categoria'
 interface ProdutoInterface extends Document {
   titulo?: string,
   descricao?: string,
-  imagens?: string[],
+  imagens?: [],
   peso?: number,
   estoque?: number,
   categoria?: Types.ObjectId
