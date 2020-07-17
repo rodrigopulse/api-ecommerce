@@ -1,8 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
-
 import dotenv from 'dotenv'
-
+import cors from 'cors'
 import routes from './routes'
 
 dotenv.config()
@@ -18,6 +17,7 @@ class App {
 
   private middlewares ():void {
     this.express.use(express.json())
+    this.express.use(cors())
   }
 
   private database ():void {

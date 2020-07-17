@@ -8,8 +8,9 @@ interface ProdutoInterface extends Document {
   imagens?: [],
   peso?: number,
   estoque?: number,
-  categoria?: Types.ObjectId
-  destaque?: boolean
+  categoria?: Types.ObjectId,
+  destaque?: boolean,
+  preco?: number
 }
 
 const ProdutoSchema = new Schema({
@@ -19,7 +20,8 @@ const ProdutoSchema = new Schema({
   peso: { type: Number },
   estoque: { type: Number },
   categoria: { type: Schema.Types.ObjectId, ref: Categoria },
-  destaque: { type: Boolean }
+  destaque: { type: Boolean },
+  preco: { type: Number }
 }, {
   collection: 'produtos',
   versionKey: false,

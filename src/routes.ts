@@ -1,5 +1,5 @@
 import { Router } from 'express'
-// import path from 'path'
+
 import Auth from './services/auth'
 
 import multer from 'multer'
@@ -9,7 +9,7 @@ import ProdutoController from './controllers/ProdutoController'
 
 const auth = new Auth()
 const routes = Router()
-// const upload = multer({ dest: `${__dirname}/uploads/produtos` })
+
 const storage = multer.diskStorage({
   destination: './uploads/produtos',
   filename: function (req, file, cb) {
