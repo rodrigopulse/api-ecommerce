@@ -23,6 +23,16 @@ class CategoriaController {
     }
   }
 
+  public async atualiza (req: Request, res: Response): Promise<Response> {
+    try {
+      const id = req.path.split('/').pop()
+      const categoria = await Categoria.replaceOne({ _id: id }, req.body)
+      return res.status(201).json(categoria)
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Usuário não criado', erro: err })
+    }
+  }
+
   public async cadastra (req: Request, res: Response): Promise<Response> {
     try {
       const categoria = await Categoria.create(req.body)
