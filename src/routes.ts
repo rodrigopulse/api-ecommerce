@@ -12,7 +12,7 @@ const auth = new Auth()
 const routes = Router()
 
 const storage = multer.diskStorage({
-  destination: './uploads/produtos',
+  destination: './imagens',
   filename: function (req, file, cb) {
     cb(null, Date.now() + '.jpg')
   }
@@ -27,6 +27,7 @@ routes.post('/usuario/login', UsuarioController.login)
 
 // Produto
 routes.post('/produto', auth.verificaToken, upload.array('imagens'), ProdutoController.cadastra)
+routes.put('/produto/:id', auth.verificaToken, ProdutoController.atualiza)
 routes.get('/produto/:id', ProdutoController.get)
 routes.get('/produto', ProdutoController.getTodos)
 routes.delete('/produto/:id', auth.verificaToken, ProdutoController.delete)

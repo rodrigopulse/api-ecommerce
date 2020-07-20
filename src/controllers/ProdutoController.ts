@@ -28,6 +28,30 @@ class ProdutoController {
     }
   }
 
+  public async atualiza (req: Request, res: Response): Promise<Response> {
+    try {
+      const id = req.path.split('/').pop()
+      const reqFiles = []
+      for (let i = 0; i < req.files.length; i++) {
+        reqFiles.push(req.files[i].filename)
+      }
+      const data = {
+        titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        peso: req.body.peso,
+        estoque: req.body.estoque,
+        categoria: req.body.categoria,
+        destaque: req.body.destaque,
+        preco: req.body.preco,
+        imagens: reqFiles
+      }
+      const produto = await Produto.replaceOne({ _id: id }, data)
+      return res.status(201).json({ produto, arquivo: req.file })
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Produto não cadastrado', erro: err })
+    }
+  }
+
   // Get produto ID
   public async get (req: Request, res: Response): Promise<Response> {
     try {
