@@ -6,6 +6,7 @@ import multer from 'multer'
 
 import UsuarioController from './controllers/UsuarioController'
 import ProdutoController from './controllers/ProdutoController'
+import CategoriaController from './controllers/CategoriaController'
 
 const auth = new Auth()
 const routes = Router()
@@ -27,6 +28,11 @@ routes.post('/usuario/login', UsuarioController.login)
 // Produto
 routes.post('/produto/cadastra', auth.verificaToken, upload.array('imagens'), ProdutoController.cadastra)
 routes.get('/produto/:id', ProdutoController.getId)
-routes.delete('/produto/:id', ProdutoController.deleteId)
+routes.delete('/produto/:id', auth.verificaToken, ProdutoController.deleteId)
+
+// Categoria
+routes.post('/categoria/cadastra', auth.verificaToken, CategoriaController.cadastra)
+routes.get('/categoria/:id', CategoriaController.getId)
+routes.delete('/categoria/:id', auth.verificaToken, CategoriaController.deleteId)
 
 export default routes

@@ -9,7 +9,7 @@ const CategoriaSchema = new Schema({
   titulo: { type: String, required: true },
   descricao: { type: String }
 }, {
-  collection: 'produtos',
+  collection: 'categorias',
   versionKey: false,
   timestamps: true
 })
