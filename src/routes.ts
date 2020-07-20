@@ -26,7 +26,7 @@ routes.post('/usuario/cadastra', UsuarioController.cadastra)
 routes.post('/usuario/login', UsuarioController.login)
 
 // Produto
-routes.post('/produto/cadastra', auth.verificaToken, upload.array('imagens'), ProdutoController.cadastra)
+routes.post('/produto', auth.verificaToken, upload.array('imagens'), ProdutoController.cadastra)
 routes.get('/produto/:id', ProdutoController.getId)
 routes.delete('/produto/:id', auth.verificaToken, ProdutoController.deleteId)
 
