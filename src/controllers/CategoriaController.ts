@@ -4,18 +4,25 @@ import Categoria from '../schemas/Categoria'
 
 dotenv.config()
 class CategoriaController {
-  // Get usuario ID
-  public async getId (req: Request, res: Response): Promise<Response> {
+  public async get (req: Request, res: Response): Promise<Response> {
     try {
-      const id = req.path.split('/').pop()
-      const categoria = await Categoria.find({ _id: id })
+      const categoria = await Categoria.find()
       return res.status(200).json(categoria)
     } catch (err) {
       return res.status(400).json({ mensagem: 'Usuário não encontrado', erro: err })
     }
   }
 
-  // Cria usuario
+  public async getId (req: Request, res: Response): Promise<Response> {
+    try {
+      const id = req.path.split('/').pop()
+      const categoria = await Categoria.findOne({ _id: id })
+      return res.status(200).json(categoria)
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Usuário não encontrado', erro: err })
+    }
+  }
+
   public async cadastra (req: Request, res: Response): Promise<Response> {
     try {
       const categoria = await Categoria.create(req.body)

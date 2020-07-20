@@ -33,6 +33,7 @@ routes.delete('/produto/:id', auth.verificaToken, ProdutoController.deleteId)
 // Categoria
 routes.post('/categoria/cadastra', auth.verificaToken, CategoriaController.cadastra)
 routes.get('/categoria/:id', CategoriaController.getId)
+routes.get('/categoria', CategoriaController.get)
 routes.delete('/categoria/:id', auth.verificaToken, CategoriaController.deleteId)
 
 export default routes
