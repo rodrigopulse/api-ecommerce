@@ -10,7 +10,7 @@ class Auth {
       const token = req.headers['x-access-token']
       const idUsuario = req.headers['id-usuario']?.toString()
       if (token === undefined) {
-        return res.status(400).json({ mensagem: 'Não existe token no header' })
+        return res.status(401).json({ mensagem: 'Não existe token no header' })
       } else {
         const decoded = await jwt.decode(token.toString(), process.env.SECRET_JWT || '')
         console.log('decoded: ', decoded, 'idUser: ', idUsuario)
