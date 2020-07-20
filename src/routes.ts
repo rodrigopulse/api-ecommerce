@@ -27,8 +27,9 @@ routes.post('/usuario/login', UsuarioController.login)
 
 // Produto
 routes.post('/produto', auth.verificaToken, upload.array('imagens'), ProdutoController.cadastra)
-routes.get('/produto/:id', ProdutoController.getId)
-routes.delete('/produto/:id', auth.verificaToken, ProdutoController.deleteId)
+routes.get('/produto/:id', ProdutoController.get)
+routes.get('/produto', ProdutoController.getTodos)
+routes.delete('/produto/:id', auth.verificaToken, ProdutoController.delete)
 
 // Categoria
 routes.post('/categoria', auth.verificaToken, CategoriaController.cadastra)

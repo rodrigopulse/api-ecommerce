@@ -29,18 +29,27 @@ class ProdutoController {
   }
 
   // Get produto ID
-  public async getId (req: Request, res: Response): Promise<Response> {
+  public async get (req: Request, res: Response): Promise<Response> {
     try {
       const id = req.path.split('/').pop()
-      const produto = await Produto.find({ _id: id })
+      const produto = await Produto.findOne({ _id: id })
       return res.status(200).json(produto)
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produto não encontrado', erro: err })
     }
   }
 
+  public async getTodos (req: Request, res: Response): Promise<Response> {
+    try {
+      const produto = await Produto.find()
+      return res.status(200).json(produto)
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Produtos não encontrados', erro: err })
+    }
+  }
+
   // Delete produto ID
-  public async deleteId (req: Request, res: Response): Promise<Response> {
+  public async delete (req: Request, res: Response): Promise<Response> {
     try {
       const id = req.path.split('/').pop()
       const produto = await Produto.findOne({ _id: id })
