@@ -10,7 +10,7 @@ interface ProdutoInterface extends Document {
   estoque?: number,
   categoria?: Types.ObjectId,
   destaque?: boolean,
-  preco?: number
+  preco?: string
 }
 
 const ProdutoSchema = new Schema({
@@ -21,7 +21,7 @@ const ProdutoSchema = new Schema({
   estoque: { type: Number },
   categoria: { type: Schema.Types.ObjectId, ref: Categoria },
   destaque: { type: Boolean },
-  preco: { type: Number }
+  preco: { type: String }
 }, {
   collection: 'produtos',
   versionKey: false,

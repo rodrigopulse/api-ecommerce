@@ -13,6 +13,12 @@ class ProdutoController {
       }
       const data = {
         titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        peso: req.body.peso,
+        estoque: req.body.estoque,
+        categoria: req.body.categoria,
+        destaque: req.body.destaque,
+        preco: req.body.preco,
         imagens: reqFiles
       }
       const produto = await Produto.create(data)
