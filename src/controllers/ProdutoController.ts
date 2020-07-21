@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import fs from 'fs'
+// import fs from 'fs'
 
 import Produto from '../schemas/Produto'
 
