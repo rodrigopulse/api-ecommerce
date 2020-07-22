@@ -13,7 +13,6 @@ class Auth {
         return res.status(401).json({ mensagem: 'Não existe token no header' })
       } else {
         const decoded = await jwt.decode(token.toString(), process.env.SECRET_JWT || '')
-        console.log('decoded: ', decoded, 'idUser: ', idUsuario)
         if (decoded.id === idUsuario) {
           return next()
         } else {
