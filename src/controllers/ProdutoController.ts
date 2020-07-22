@@ -59,7 +59,7 @@ class ProdutoController {
   public async get (req: Request, res: Response): Promise<Response> {
     try {
       const id = req.path.split('/').pop()
-      const produto = await Produto.findOne({ _id: id })
+      const produto = await Produto.findOne({ _id: id }).populate('categoria')
       return res.status(200).json(produto)
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produto não encontrado', erro: err })
@@ -68,7 +68,7 @@ class ProdutoController {
 
   public async getTodos (req: Request, res: Response): Promise<Response> {
     try {
-      const produto = await Produto.find()
+      const produto = await Produto.find().populate('categoria')
       return res.status(200).json(produto)
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produtos não encontrados', erro: err })
