@@ -9,6 +9,7 @@ interface PedidoInterface extends Document {
       quantidade?: number
     }
   ],
+  codigoPedido: number,
   valor?: number,
   frete?: number,
   usuario?: Types.ObjectId
@@ -19,6 +20,7 @@ const PedidoSchema = new Schema({
     produto: { type: Schema.Types.ObjectId, ref: Produto },
     quantidade: Number
   }],
+  codigoPedido: { type: Number },
   valor: Number,
   frete: Number,
   usuario: { type: Schema.Types.ObjectId, ref: Usuario }
