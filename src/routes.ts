@@ -7,6 +7,7 @@ import multer from 'multer'
 import UsuarioController from './controllers/UsuarioController'
 import ProdutoController from './controllers/ProdutoController'
 import CategoriaController from './controllers/CategoriaController'
+import PedidoController from './controllers/PedidoController'
 
 const auth = new Auth()
 const routes = Router()
@@ -38,5 +39,9 @@ routes.put('/categoria/:id', auth.verificaToken, CategoriaController.atualiza)
 routes.get('/categoria', CategoriaController.getTodas)
 routes.get('/categoria/:id', CategoriaController.get)
 routes.delete('/categoria/:id', auth.verificaToken, CategoriaController.delete)
+
+// Pedido
+routes.post('/pedido', PedidoController.cadastra)
+routes.get('/pedido/:id', PedidoController.get)
 
 export default routes
