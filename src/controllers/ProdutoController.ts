@@ -28,7 +28,7 @@ class ProdutoController {
   public async atualiza (req: Request, res: Response): Promise<Response> {
     try {
       const id = req.path.split('/').pop()
-      const produto = await Produto.findOne({ _id: id })
+      const produto = await Produto.findOne({ _id: id }) || ''
       for (let index = 0; index < produto.imagens.length; index++) {
         const imagem = produto?.imagens[index]
         const nomeImagem = imagem?.filename.split('.')
@@ -79,7 +79,7 @@ class ProdutoController {
   public async delete (req: Request, res: Response): Promise<Response | void> {
     try {
       const id = req.path.split('/').pop()
-      const produto = await Produto.findOne({ _id: id })
+      const produto = await Produto.findOne({ _id: id }) || ''
       for (let index = 0; index < produto.imagens.length; index++) {
         const imagem = produto?.imagens[index]
         const nomeImagem = imagem?.filename.split('.')

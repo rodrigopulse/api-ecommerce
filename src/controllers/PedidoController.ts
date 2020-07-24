@@ -22,8 +22,8 @@ class PedidoController {
 
   public async get (req: Request, res: Response): Promise<Response> {
     try {
-      const id = req.path.split('/').pop()
-      const pedido = await Pedido.findOne({ _id: id })
+      const codigoPedido:string = req.path.split('/').pop() || ''
+      const pedido = await Pedido.findOne({ codigoPedido: parseInt(codigoPedido, 10) })
         .populate({
           path: 'produtos',
           populate: {
