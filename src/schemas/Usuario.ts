@@ -5,6 +5,16 @@ interface UsuarioInterface extends Document {
   nome?: string,
   senha?: string,
   role?: string,
+  cpf?: number,
+  endereco?: {
+    logradouro: string,
+    numero: number,
+    complemento: string,
+    bairro: string,
+    cidade: string,
+    estado: string,
+    cep: number
+  }
 }
 
 const UsuarioSchema = new Schema({
@@ -17,7 +27,17 @@ const UsuarioSchema = new Schema({
   },
   nome: String,
   senha: String,
-  role: String
+  role: String,
+  cpf: Number,
+  endereco: {
+    logradouro: String,
+    numero: Number,
+    complemento: String,
+    bairro: String,
+    cidade: String,
+    estado: String,
+    cep: Number
+  }
 }, {
   collection: 'usuarios',
   versionKey: false,
