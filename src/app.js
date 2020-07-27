@@ -7,21 +7,20 @@ import routes from './routes'
 dotenv.config()
 
 class App {
-  public express: express.Application
-  public constructor () {
+  constructor () {
     this.express = express()
     this.middlewares()
     this.database()
     this.routes()
   }
 
-  private middlewares ():void {
+  middlewares () {
     this.express.use(express.json())
     this.express.use(cors())
     this.express.use('/imagens', express.static('./imagens'))
   }
 
-  private database ():void {
+  database () {
     const user = process.env.DB_USER
     const password = process.env.DB_PASSWORD
     const host = process.env.DB_HOST
@@ -32,7 +31,7 @@ class App {
     })
   }
 
-  private routes ():void {
+  routes () {
     this.express.use(routes)
   }
 }

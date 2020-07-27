@@ -1,11 +1,10 @@
-import { Request, Response, NextFunction } from 'express'
 import jwt from 'jwt-simple'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
 class Auth {
-  verificaToken = async (req: Request, res:Response, next:NextFunction):Promise<Response | void> => {
+  async verificaToken (req, res, next) {
     try {
       const token = req.headers['x-access-token']
       const idUsuario = req.headers['id-usuario']?.toString()

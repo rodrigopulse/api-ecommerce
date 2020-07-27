@@ -1,21 +1,6 @@
-import { Schema, Document, model, Types } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import Produto from './Produto'
 import Usuario from './Usuario'
-
-interface PedidoInterface extends Document {
-  produtos?: [
-    {
-      produto?: Types.ObjectId,
-      quantidade?: number
-    }
-  ],
-  codigoPedido: number,
-  valor?: number,
-  frete?: number,
-  usuario?: Types.ObjectId,
-  status?: string,
-  rastreio?: string
-}
 
 const PedidoSchema = new Schema({
   produtos: [{
@@ -34,4 +19,4 @@ const PedidoSchema = new Schema({
   timestamps: true
 })
 
-export default model<PedidoInterface>('Pedido', PedidoSchema)
+export default model('Pedido', PedidoSchema)

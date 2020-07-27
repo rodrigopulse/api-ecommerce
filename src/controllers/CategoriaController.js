@@ -1,10 +1,9 @@
-import { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import Categoria from '../schemas/Categoria'
 
 dotenv.config()
 class CategoriaController {
-  public async getTodas (req: Request, res: Response): Promise<Response> {
+  async getTodas (req, res) {
     try {
       const categoria = await Categoria.find()
       return res.status(200).json(categoria)
@@ -13,7 +12,7 @@ class CategoriaController {
     }
   }
 
-  public async get (req: Request, res: Response): Promise<Response> {
+  async get (req, res) {
     try {
       const id = req.path.split('/').pop()
       const categoria = await Categoria.findOne({ _id: id })
@@ -23,7 +22,7 @@ class CategoriaController {
     }
   }
 
-  public async atualiza (req: Request, res: Response): Promise<Response> {
+  async atualiza (req, res) {
     try {
       const id = req.path.split('/').pop()
       const categoria = await Categoria.replaceOne({ _id: id }, req.body)
@@ -33,7 +32,7 @@ class CategoriaController {
     }
   }
 
-  public async cadastra (req: Request, res: Response): Promise<Response> {
+  async cadastra (req, res) {
     try {
       const categoria = await Categoria.create(req.body)
       return res.status(201).json(categoria)
@@ -42,7 +41,7 @@ class CategoriaController {
     }
   }
 
-  public async delete (req: Request, res: Response): Promise<Response> {
+  async delete (req, res) {
     try {
       const id = req.path.split('/').pop()
       const categoria = await Categoria.deleteOne({ _id: id })

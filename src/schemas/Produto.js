@@ -1,17 +1,6 @@
-import { Schema, Document, model, Types } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
 import Categoria from './Categoria'
-
-interface ProdutoInterface extends Document {
-  titulo?: string,
-  descricao?: string,
-  imagens?: [],
-  peso?: number,
-  estoque?: number,
-  categoria?: Types.ObjectId,
-  destaque?: boolean,
-  preco?: number
-}
 
 const ProdutoSchema = new Schema({
   titulo: { type: String, required: true },
@@ -28,4 +17,4 @@ const ProdutoSchema = new Schema({
   timestamps: true
 })
 
-export default model<ProdutoInterface>('Produto', ProdutoSchema)
+export default model('Produto', ProdutoSchema)

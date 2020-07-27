@@ -1,13 +1,11 @@
-import { Request, Response } from 'express'
 import fs from 'fs'
 
 import Produto from '../schemas/Produto'
 
 class ProdutoController {
   // Cadastra produto
-  public async cadastra (req: Request, res: Response): Promise<Response> {
+  async cadastra (req, res) {
     try {
-      console.log(req.body)
       const data = {
         titulo: req.body.titulo,
         descricao: req.body.descricao,
@@ -25,12 +23,12 @@ class ProdutoController {
     }
   }
 
-  public async atualiza (req: Request, res: Response): Promise<Response> {
+  async atualiza (req, res) {
     try {
       const id = req.path.split('/').pop()
-      const produto = await Produto.findOne({ _id: id }) || ''
+      const produto = await Produto.findOne({ _id: id })
       for (let index = 0; index < produto.imagens.length; index++) {
-        const imagem = produto?.imagens[index]
+        const imagem = produto.imagens[index]
         const nomeImagem = imagem?.filename.split('.')
         fs.unlink(`${process.cwd()}/imagens/${nomeImagem[0]}.jpg`, (err) => {
           if (err) {
@@ -56,7 +54,7 @@ class ProdutoController {
   }
 
   // Get produto ID
-  public async get (req: Request, res: Response): Promise<Response> {
+  async get (req, res) {
     try {
       const id = req.path.split('/').pop()
       const produto = await Produto.findOne({ _id: id }).populate('categoria')
@@ -66,11 +64,11 @@ class ProdutoController {
     }
   }
 
-  public async getTodos (req: Request, res: Response): Promise<Response> {
+  async getTodos (req, res) {
     try {
-      const limite: string = req.query.limite
-      const pagina: string = req.query.pagina
-      const contaProduto = await Produto.count({})
+      const limite = req.query.limite
+      const pagina = req.query.pagina
+      const contaProduto = await Produto.estimatedDocumentCount()
       const totalPaginas = Math.round(contaProduto / parseFloat(limite))
       const produto = await Produto.find().limit(parseFloat(limite)).skip(parseFloat(pagina) - 1).populate('categoria')
       return res.status(200).json({ totalPaginas: totalPaginas === 0 ? 1 : totalPaginas, produto })
@@ -80,12 +78,12 @@ class ProdutoController {
   }
 
   // Delete produto ID
-  public async delete (req: Request, res: Response): Promise<Response | void> {
+  async delete (req, res) {
     try {
       const id = req.path.split('/').pop()
       const produto = await Produto.findOne({ _id: id }) || ''
       for (let index = 0; index < produto.imagens.length; index++) {
-        const imagem = produto?.imagens[index]
+        const imagem = produto.imagens[index]
         const nomeImagem = imagem?.filename.split('.')
         fs.unlink(`${process.cwd()}/imagens/${nomeImagem[0]}.jpg`, (err) => {
           if (err) {

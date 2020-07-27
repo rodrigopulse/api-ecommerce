@@ -1,21 +1,5 @@
-import { Schema, Document, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import bcrypt from 'bcrypt'
-interface UsuarioInterface extends Document {
-  email?: string
-  nome?: string,
-  senha?: string,
-  role?: string,
-  cpf?: number,
-  endereco?: {
-    logradouro: string,
-    numero: number,
-    complemento: string,
-    bairro: string,
-    cidade: string,
-    estado: string,
-    cep: number
-  }
-}
 
 const UsuarioSchema = new Schema({
   email: {
@@ -44,7 +28,7 @@ const UsuarioSchema = new Schema({
   timestamps: true
 })
 
-UsuarioSchema.pre<UsuarioInterface>('save', async function (next) {
+UsuarioSchema.pre('save', async function (next) {
   if (!this.isModified('senha')) return next()
   try {
     // Criptografa a senha
@@ -55,4 +39,4 @@ UsuarioSchema.pre<UsuarioInterface>('save', async function (next) {
   }
 })
 
-export default model<UsuarioInterface>('User', UsuarioSchema)
+export default model('User', UsuarioSchema)

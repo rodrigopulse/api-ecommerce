@@ -1,14 +1,20 @@
-import { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import Pedido from '../schemas/Pedido'
 
 dotenv.config()
 class PedidoController {
-  public async cadastra (req: Request, res: Response): Promise<Response> {
+  async cadastra (req, res) {
     try {
       try {
         const ultimoPedido = await Pedido.find().sort({ _id: -1 }).limit(1)
         const codigoUltimoPedido = ultimoPedido[0].codigoPedido
+        const valores = []
+        req.body.produtos.forEach((produto) => {
+          const valor = produto.valor * produto.quantidade
+          valores.push(valor)
+        })
+        const soma = valores.reduce(function (a, b) { return a + b }, 0)
+        req.body.valor = soma
         req.body.codigoPedido = codigoUltimoPedido + 1
       } catch (err) {
         req.body.codigoPedido = 1
@@ -20,7 +26,7 @@ class PedidoController {
     }
   }
 
-  public async get (req: Request, res: Response): Promise<Response> {
+  async get (req, res) {
     try {
       const codigoPedido = parseFloat(req.params.codigoPedido)
       const pedido = await Pedido.findOne({ codigoPedido: codigoPedido })
@@ -38,7 +44,7 @@ class PedidoController {
     }
   }
 
-  public async getTodos (req: Request, res: Response): Promise<Response> {
+  async getTodos (req, res) {
     try {
       const pedido = await Pedido.find()
         .populate({
@@ -55,7 +61,7 @@ class PedidoController {
     }
   }
 
-  public async atualiza (req: Request, res: Response): Promise<Response> {
+  async atualiza (req, res) {
     try {
       const codigoPedido = parseFloat(req.params.codigoPedido)
       const pedido = await Pedido.updateOne({ codigoPedido: codigoPedido }, req.body)

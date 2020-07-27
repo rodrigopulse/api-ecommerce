@@ -1,4 +1,3 @@
-import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jwt-simple'
 import dotenv from 'dotenv'
@@ -7,7 +6,7 @@ import Usuario from '../schemas/Usuario'
 dotenv.config()
 class UsuarioController {
   // Get usuario ID
-  public async id (req: Request, res: Response): Promise<Response> {
+  async id (req, res) {
     try {
       const id = req.path.split('/').pop()
       const usuario = await Usuario.find({ _id: id })
@@ -24,7 +23,7 @@ class UsuarioController {
   }
 
   // Cria usuario
-  public async cadastra (req: Request, res: Response): Promise<Response> {
+  async cadastra (req, res) {
     try {
       const usuario = await Usuario.create(req.body)
       return res.status(201).json({ email: usuario.email, _id: usuario._id })
@@ -34,7 +33,7 @@ class UsuarioController {
   }
 
   // Login
-  public async login (req: Request, res: Response): Promise<Response | void> {
+  async login (req, res) {
     try {
       const usuario = await Usuario.find({ email: req.body.email })
       if (usuario.length === 0) {
