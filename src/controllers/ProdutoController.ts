@@ -68,7 +68,9 @@ class ProdutoController {
 
   public async getTodos (req: Request, res: Response): Promise<Response> {
     try {
-      const produto = await Produto.find().populate('categoria')
+      const limite: string = req.query.limite
+      const pagina: string = req.query.pagina
+      const produto = await Produto.find().limit(parseFloat(limite)).skip(parseFloat(pagina) - 1).populate('categoria')
       return res.status(200).json(produto)
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produtos não encontrados', erro: err })

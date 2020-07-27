@@ -42,7 +42,8 @@ routes.delete('/categoria/:id', auth.verificaToken, CategoriaController.delete)
 
 // Pedido
 routes.post('/pedido', PedidoController.cadastra)
-routes.get('/pedido', PedidoController.getTodos)
-routes.get('/pedido/:id', PedidoController.get)
+routes.put('/pedido/:codigoPedido', auth.verificaToken, PedidoController.atualiza)
+routes.get('/pedido', auth.verificaToken, PedidoController.getTodos)
+routes.get('/pedido/:codigoPedido', auth.verificaToken, PedidoController.get)
 
 export default routes

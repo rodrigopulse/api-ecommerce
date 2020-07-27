@@ -22,8 +22,8 @@ class PedidoController {
 
   public async get (req: Request, res: Response): Promise<Response> {
     try {
-      const codigoPedido:string = req.path.split('/').pop() || ''
-      const pedido = await Pedido.findOne({ codigoPedido: parseInt(codigoPedido, 10) })
+      const codigoPedido = parseFloat(req.params.codigoPedido)
+      const pedido = await Pedido.findOne({ codigoPedido: codigoPedido })
         .populate({
           path: 'produtos',
           populate: {
@@ -34,7 +34,7 @@ class PedidoController {
         .populate('usuario')
       return res.status(200).json(pedido)
     } catch (err) {
-      return res.status(400).json({ mensagem: 'Categoria não encontrada', erro: err })
+      return res.status(400).json({ mensagem: 'Pedido não encontrado', erro: err })
     }
   }
 
@@ -51,7 +51,17 @@ class PedidoController {
         .populate('usuario')
       return res.status(200).json(pedido)
     } catch (err) {
-      return res.status(400).json({ mensagem: 'Categoria não encontrada', erro: err })
+      return res.status(400).json({ mensagem: 'Pedido não encontrado', erro: err })
+    }
+  }
+
+  public async atualiza (req: Request, res: Response): Promise<Response> {
+    try {
+      const codigoPedido = parseFloat(req.params.codigoPedido)
+      const pedido = await Pedido.updateOne({ codigoPedido: codigoPedido }, { status: req.body.status })
+      return res.status(200).json({ mensagem: 'Pedido atualizado com sucesso', data: pedido })
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Pedido não atualizado', erro: err })
     }
   }
 }
