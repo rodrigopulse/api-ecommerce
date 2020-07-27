@@ -13,7 +13,8 @@ interface PedidoInterface extends Document {
   valor?: number,
   frete?: number,
   usuario?: Types.ObjectId,
-  status?: string
+  status?: string,
+  rastreio?: string
 }
 
 const PedidoSchema = new Schema({
@@ -25,7 +26,8 @@ const PedidoSchema = new Schema({
   valor: Number,
   frete: Number,
   usuario: { type: Schema.Types.ObjectId, ref: Usuario },
-  status: String
+  status: String,
+  rastreio: String
 }, {
   collection: 'pedidos',
   versionKey: false,

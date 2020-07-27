@@ -58,7 +58,7 @@ class PedidoController {
   public async atualiza (req: Request, res: Response): Promise<Response> {
     try {
       const codigoPedido = parseFloat(req.params.codigoPedido)
-      const pedido = await Pedido.updateOne({ codigoPedido: codigoPedido }, { status: req.body.status })
+      const pedido = await Pedido.updateOne({ codigoPedido: codigoPedido }, req.body)
       return res.status(200).json({ mensagem: 'Pedido atualizado com sucesso', data: pedido })
     } catch (err) {
       return res.status(400).json({ mensagem: 'Pedido não atualizado', erro: err })
