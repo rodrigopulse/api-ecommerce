@@ -70,8 +70,11 @@ class ProdutoController {
     try {
       const limite: string = req.query.limite
       const pagina: string = req.query.pagina
+      const contaProduto = await Produto.count({})
+      const totalPaginas = Math.round(contaProduto / parseFloat(limite))
+      console.log(totalPaginas === 0 ? 1 : totalPaginas)
       const produto = await Produto.find().limit(parseFloat(limite)).skip(parseFloat(pagina) - 1).populate('categoria')
-      return res.status(200).json(produto)
+      return res.status(200).json({ totalPaginas: totalPaginas === 0 ? 1 : totalPaginas, produto })
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produtos não encontrados', erro: err })
     }
