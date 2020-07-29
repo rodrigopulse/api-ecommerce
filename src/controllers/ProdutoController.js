@@ -97,6 +97,15 @@ class ProdutoController {
       return res.status(400).json({ mensagem: 'Produto não encontrado', erro: err })
     }
   }
+  async busca (req, res) {
+    console.log('busca 1: ', req.params.busca)
+    try {
+      const produto = await Produto.find({ titulo : { '$regex' : req.params.busca, '$options' : 'i' } })
+      return res.status(200).json(produto)
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Produto não encontrado', erro: err })
+    }
+  }
 }
 
 export default new ProdutoController()

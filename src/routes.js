@@ -31,6 +31,7 @@ routes.post('/produto', auth.verificaToken, upload.array('imagens'), ProdutoCont
 routes.put('/produto/:id', auth.verificaToken, upload.array('imagens'), ProdutoController.atualiza)
 routes.get('/produto/:id', ProdutoController.get)
 routes.get('/produto', ProdutoController.getTodos)
+routes.get('/produtobusca/:busca', ProdutoController.busca)
 routes.delete('/produto/:id', auth.verificaToken, ProdutoController.delete)
 
 // Categoria
