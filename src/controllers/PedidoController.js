@@ -3,6 +3,7 @@ import Pedido from '../schemas/Pedido'
 
 dotenv.config()
 class PedidoController {
+
   async cadastra (req, res) {
     try {
       try {
@@ -22,6 +23,7 @@ class PedidoController {
       const pedido = await Pedido.create(req.body)
       return res.status(201).json(pedido)
     } catch (err) {
+      console.log(err)
       return res.status(400).json({ mensagem: 'Pedido não criado', erro: err })
     }
   }
