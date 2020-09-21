@@ -1,10 +1,10 @@
-import pagar from '../services/pagarme'
+import pagarCartao from '../services/pagarme'
 
 class PagamentoController {
 
-  async pagar (req, res) {
+  async pagarCartao (req, res) {
     try  {
-      const pagamento = await pagar()
+      const pagamento = await pagarCartao(req.body)
       if (pagamento.status == 'refused') {
         return res.status(400).json({ mensagem: 'pagamento não efetuado', pagamento })
       }

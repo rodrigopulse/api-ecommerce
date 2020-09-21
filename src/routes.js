@@ -49,6 +49,6 @@ routes.get('/pedido', auth.verificaToken, PedidoController.getTodos)
 routes.get('/pedido/:codigoPedido', auth.verificaToken, PedidoController.get)
 
 // Pagamento
-routes.post('/pagar', PagamentoController.pagar)
+routes.post('/pagar/cartao', PagamentoController.pagarCartao)
 
 export default routes

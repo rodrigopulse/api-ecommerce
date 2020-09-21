@@ -1,71 +1,56 @@
 import pagarme from 'pagarme'
 
-export default function pagar() {
+export default function pagarCartao(data) {
   return new Promise( (resolve, reject) => {
-    pagarme.client.connect({ api_key: 'ak_test_n2re8Cnh82ZhYjjPajzgUh32m4iuU2' })
+    pagarme.client.connect({ api_key: process.env.API_PAGARME })
       .then( client => {
         client.transactions.create({
-          amount: 1000,
-          card_number: '4111111111111111',
-          card_holder_name: 'abc',
-          card_expiration_date: '1225',
-          card_cvv: '123',
+          amount: data.valorTotal,
+          card_number: data.numeroCartao,
+          card_holder_name: data.nomeCartao,
+          card_expiration_date: data.expiraCartao,
+          card_cvv: data.cvvCartao,
           billing: {
-            name: "Trinity Moss",
+            name: data.billing.nome,
             address: {
-              country: "br",
-              state: "sp",
-              city: "Cotia",
-              neighborhood: "Rio Cotia",
-              street: "Rua Matrix",
-              street_number: "9999",
-              zipcode: "06714360"
+              country: data.billing.endereco.pais,
+              state: data.billing.endereco.uf,
+              city: data.billing.endereco.cidade,
+              neighborhood: data.billing.endereco.bairro,
+              street: data.billing.endereco.logradouro,
+              street_number: data.billing.endereco.numero,
+              zipcode: data.billing.endereco.cep
             }
           },
-          items: [
-            {
-              "id": "r123",
-              "title": "Red pill",
-              "unit_price": 10000,
-              "quantity": 1,
-              "tangible": true
-            },
-            {
-              "id": "b123",
-              "title": "Blue pill",
-              "unit_price": 10000,
-              "quantity": 1,
-              "tangible": true
-            }
-          ],
-          "customer": {
-            "external_id": "#3311",
-            "name": "Morpheus Fishburne",
-            "type": "individual",
-            "country": "br",
-            "email": "mopheus@nabucodonozor.com",
-            "documents": [
+          items: data.produtos,
+          customer: {
+            external_id: data.usuario.id,
+            name: data.usuario.nome,
+            type: "individual",
+            country: "br",
+            email: data.usuario.email,
+            documents: [
               {
-                "type": "cpf",
-                "number": "30621143049"
+                type: "cpf",
+                number: data.usuario.cpf
               }
             ],
-            "phone_numbers": ["+5511999998888", "+5511888889999"],
-            "birthday": "1965-01-01"
+            phone_numbers: [ data.usuario.celular ],
+            birthday: data.usuario.aniversario
           },
-          "shipping": {
-            "name": "Neo Reeves",
-            "fee": 1000,
-            "delivery_date": "2000-12-21",
-            "expedited": true,
-            "address": {
-              "country": "br",
-              "state": "sp",
-              "city": "Cotia",
-              "neighborhood": "Rio Cotia",
-              "street": "Rua Matrix",
-              "street_number": "9999",
-              "zipcode": "06714360"
+          shipping: {
+            name: data.entrega.nome,
+            fee: data.entrega.frete,
+            delivery_date: data.entrega.prazo,
+            expedited: data.entrega.expedido,
+            address: {
+              country: data.entrega.endereco.pais,
+              state: data.entrega.endereco.uf,
+              city: data.entrega.endereco.cidade,
+              neighborhood: data.entrega.endereco.bairro,
+              street: data.entrega.endereco.logradouro,
+              street_number: data.entrega.endereco.numero,
+              zipcode: data.entrega.endereco.cep
             }
           },
         })
