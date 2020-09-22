@@ -9,6 +9,7 @@ import ProdutoController from './controllers/ProdutoController'
 import CategoriaController from './controllers/CategoriaController'
 import PedidoController from './controllers/PedidoController'
 import PagamentoController from './controllers/PagamentoController'
+import FreteController from './controllers/FreteController'
 
 const auth = new Auth()
 const routes = Router()
@@ -50,5 +51,8 @@ routes.get('/pedido/:codigoPedido', auth.verificaToken, PedidoController.get)
 
 // Pagamento
 routes.post('/pagar/cartao', PagamentoController.pagarCartao)
+
+// Frete
+routes.post('/frete/calcula', FreteController.calcula)
 
 export default routes

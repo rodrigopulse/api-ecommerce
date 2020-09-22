@@ -10,6 +10,7 @@ export default function pagarCartao(data) {
           card_holder_name: data.nomeCartao,
           card_expiration_date: data.expiraCartao,
           card_cvv: data.cvvCartao,
+          installments: data.parcelas,
           billing: {
             name: data.billing.nome,
             address: {
