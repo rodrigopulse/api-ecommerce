@@ -5,10 +5,13 @@ const correios = new Correios();
 
 class FreteController {
   async calcula(req, res) {
+    let peso = parseFloat(req.body.peso)
+    peso = peso / 1000
+    peso = peso.toString()
     let args = {
       sCepOrigem: req.body.cepOrigem,
       sCepDestino: req.body.cepDestino,
-      nVlPeso: req.body.peso,
+      nVlPeso: peso,
       nCdServico: req.body.servico,
       nCdFormato: '1',
       nVlComprimento: req.body.comprimento,
