@@ -11,6 +11,16 @@ class EmbalagemController {
     }
   }
 
+  async getTodos (req, res) {
+    try {
+      const embalagem = await Embalagem.find()
+      console.log(embalagem)
+      return res.status(200).json(embalagem)
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Embalagens não encontradas', erro: err })
+    }
+  }
+
 }
 
 export default new EmbalagemController()

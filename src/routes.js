@@ -39,6 +39,7 @@ routes.delete('/produto/:id', auth.verificaToken, ProdutoController.delete)
 
 // Embalagem
 routes.post('/embalagem', auth.verificaToken, EmbalagemController.cadastra)
+routes.get('/embalagem', EmbalagemController.getTodos)
 
 // Categoria
 routes.post('/categoria', auth.verificaToken, CategoriaController.cadastra)
