@@ -6,6 +6,7 @@ import multer from 'multer'
 
 import UsuarioController from './controllers/UsuarioController'
 import ProdutoController from './controllers/ProdutoController'
+import EmbalagemController from './controllers/EmbalagemController'
 import CategoriaController from './controllers/CategoriaController'
 import PedidoController from './controllers/PedidoController'
 import PagamentoController from './controllers/PagamentoController'
@@ -35,6 +36,9 @@ routes.get('/produto/:id', ProdutoController.get)
 routes.get('/produto', ProdutoController.getTodos)
 routes.get('/produtobusca/:busca', ProdutoController.busca)
 routes.delete('/produto/:id', auth.verificaToken, ProdutoController.delete)
+
+// Embalagem
+routes.post('/embalagem', auth.verificaToken, EmbalagemController.cadastra)
 
 // Categoria
 routes.post('/categoria', auth.verificaToken, CategoriaController.cadastra)

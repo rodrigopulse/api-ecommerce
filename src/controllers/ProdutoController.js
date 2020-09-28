@@ -57,7 +57,7 @@ class ProdutoController {
   async get (req, res) {
     try {
       const id = req.path.split('/').pop()
-      const produto = await Produto.findOne({ _id: id }).populate('categoria')
+      const produto = await (await Produto.findOne({ _id: id }).populate('categoria').populated('embalagem'))
       return res.status(200).json(produto)
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produto não encontrado', erro: err })
@@ -70,7 +70,7 @@ class ProdutoController {
       const pagina = req.query.pagina
       const contaProduto = await Produto.estimatedDocumentCount()
       const totalPaginas = Math.round(contaProduto / parseFloat(limite))
-      const produto = await Produto.find().limit(parseFloat(limite)).skip(parseFloat(pagina) - 1).populate('categoria')
+      const produto = await Produto.find().limit(parseFloat(limite)).skip(parseFloat(pagina) - 1).populate('categoria').populated('embalagem')
       return res.status(200).json({ totalPaginas: totalPaginas === 0 ? 1 : totalPaginas, produto })
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produtos não encontrados', erro: err })
