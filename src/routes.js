@@ -6,6 +6,7 @@ import multer from 'multer'
 
 import UsuarioController from './controllers/UsuarioController'
 import ProdutoController from './controllers/ProdutoController'
+import BannerController from './controllers/BannerController'
 import EmbalagemController from './controllers/EmbalagemController'
 import CategoriaController from './controllers/CategoriaController'
 import PedidoController from './controllers/PedidoController'
@@ -36,6 +37,16 @@ routes.get('/produto/:id', ProdutoController.get)
 routes.get('/produto', ProdutoController.getTodos)
 routes.get('/produtobusca/:busca', ProdutoController.busca)
 routes.delete('/produto/:id', auth.verificaToken, ProdutoController.delete)
+
+// Banner
+routes.post('/banner', auth.verificaToken, upload.fields([
+  { name: 'imagemDesktop', maxCount: 1 },
+  { name: 'imagemMobile', maxCount: 1 }
+]), BannerController.cadastra)
+routes.put('/banner/:id', auth.verificaToken, upload.array('imagens'), BannerController.atualiza)
+routes.get('/banner/:id', BannerController.get)
+routes.get('/banner', BannerController.getTodos)
+routes.delete('/banner/:id', auth.verificaToken, BannerController.delete)
 
 // Embalagem
 routes.post('/embalagem', auth.verificaToken, EmbalagemController.cadastra)

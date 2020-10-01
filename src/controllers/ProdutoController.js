@@ -6,19 +6,9 @@ class ProdutoController {
   // Cadastra produto
   async cadastra (req, res) {
     try {
-      const data = {
-        titulo: req.body.titulo,
-        descricao: req.body.descricao,
-        peso: req.body.peso,
-        estoque: req.body.estoque,
-        categoria: req.body.categoria,
-        embalagem: req.body.embalagem,
-        destaque: req.body.destaque,
-        preco: req.body.preco,
-        imagens: req.files
-      }
-      const produto = await Produto.create(data)
-      return res.status(201).json({ produto, arquivo: req.file })
+      req.body.imagens = req.files
+      const produto = await Produto.create(req.body)
+      return res.status(201).json( produto )
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produto não cadastrado', erro: err })
     }
@@ -37,19 +27,9 @@ class ProdutoController {
           }
         })
       }
-      const data = {
-        titulo: req.body.titulo,
-        descricao: req.body.descricao,
-        peso: req.body.peso,
-        estoque: req.body.estoque,
-        categoria: req.body.categoria,
-        embalagem: req.body.embalagem,
-        destaque: req.body.destaque,
-        preco: req.body.preco,
-        imagens: req.files
-      }
-      const categoria = await Produto.replaceOne({ _id: id }, data)
-      return res.status(201).json(categoria)
+      req.body.imagens = req.files
+      const produtoAtualiza = await Produto.replaceOne({ _id: id }, req.body)
+      return res.status(201).json(produtoAtualiza)
     } catch (err) {
       return res.status(400).json({ mensagem: 'Produto não atualizado', erro: err })
     }
