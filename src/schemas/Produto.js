@@ -8,6 +8,13 @@ const ProdutoSchema = new Schema({
   descricao: { type: String },
   imagens: { type: Array },
   peso: { type: Number },
+  slug: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
   estoque: { type: Number },
   categoria: { type: Schema.Types.ObjectId, ref: Categoria },
   embalagem: { type: Schema.Types.ObjectId, ref: Embalagem },
