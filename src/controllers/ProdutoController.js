@@ -46,6 +46,16 @@ class ProdutoController {
     }
   }
 
+  async getSlug (req, res) {
+    try {
+      const slug = req.path.split('/').pop()
+      const produto = await (await Produto.findOne({ slug: slug }).populate('categoria').populate('embalagem'))
+      return res.status(200).json(produto)
+    } catch (err) {
+      return res.status(400).json({ mensagem: 'Produto não encontrado', erro: err })
+    }
+  }
+
   async getTodos (req, res) {
     try {
       const limite = req.query.limite

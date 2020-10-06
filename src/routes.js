@@ -36,6 +36,7 @@ routes.put('/produto/:id', auth.verificaToken, upload.array('imagens'), ProdutoC
 routes.get('/produto/:id', ProdutoController.get)
 routes.get('/produto', ProdutoController.getTodos)
 routes.get('/produtobusca/:busca', ProdutoController.busca)
+routes.get('/produtoslug/:slug', ProdutoController.getSlug)
 routes.delete('/produto/:id', auth.verificaToken, ProdutoController.delete)
 
 // Banner
